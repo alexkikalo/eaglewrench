@@ -1,5 +1,4 @@
-Drop your existing EagleWrench logo here as logo.png (transparent PNG, ~512px wide is plenty).
+logo.png is the live header mark (user-supplied Eagle + wrench, black knocked out for the dark garage UI).
+logo-source.jpg is the original square file.
 
-Then set NEXT_PUBLIC_HAS_LOGO=true in Vercel env (and locally in .env.local).
-
-Do not replace this with a generated mark.
+Do not replace either with a generated mark.
