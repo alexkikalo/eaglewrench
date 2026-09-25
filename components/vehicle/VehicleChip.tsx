@@ -15,10 +15,12 @@ export function VehicleChip() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 border border-garage-amber/50 px-3 py-2 text-xs uppercase tracking-widest text-garage-amber hover:bg-garage-amber/10"
+        className="inline-flex items-center gap-2 max-w-[46vw] sm:max-w-none truncate border border-garage-amber/50 px-3 py-2 text-xs uppercase tracking-widest text-garage-amber hover:bg-garage-amber/10"
       >
-        <Car className="h-3.5 w-3.5" />
-        {!ready ? "Vehicle…" : vehicle ? shortLabel(vehicleLabel(vehicle)) : "Select vehicle"}
+        <Car className="h-3.5 w-3.5 shrink-0" />
+        <span className="truncate">
+          {!ready ? "Vehicle…" : vehicle ? shortLabel(vehicleLabel(vehicle)) : "Select vehicle"}
+        </span>
       </button>
       <VehiclePicker open={open} onClose={() => setOpen(false)} />
     </>
