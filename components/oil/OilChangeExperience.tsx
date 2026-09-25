@@ -5,7 +5,6 @@ import { Check, Droplets, RotateCcw, RotateCw, ShieldAlert, Wrench } from "lucid
 import { OilBay } from "@/components/oil/OilBay";
 import { MISTAKES, OIL_STEPS, PARTS, type PartId } from "@/lib/oil-content";
 import { DisclaimerBanner } from "@/components/Disclaimer";
-import { VehicleChip } from "@/components/vehicle/VehicleChip";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
 import {
   overlayAffiliates,
@@ -82,7 +81,6 @@ export function OilChangeExperience() {
         </section>
         <section className="steel-panel p-4 space-y-4">
           <div className="flex flex-wrap gap-2">
-            <VehicleChip />
             <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-2 border border-white/15 px-3 py-2 text-xs uppercase tracking-widest hover:border-garage-amber">
               <RotateCw className="h-3.5 w-3.5" />
               {autoRotate ? "Stop rotate" : "Auto-rotate"}
