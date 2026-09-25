@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { FindParts } from "@/components/parts/FindParts";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
 import { vehicleChipLabel } from "@/lib/vehicle/catalog";
+import { shopItemsForBay } from "@/lib/parts/for-bay";
 import type { Bay } from "@/lib/bays";
 
 export function BayStub({ bay }: { bay: Bay }) {
@@ -28,6 +30,14 @@ export function BayStub({ bay }: { bay: Bay }) {
           <p className="text-garage-steel">Select a vehicle in the header. Specs will overlay this bay when they exist.</p>
         )}
       </div>
+      <FindParts
+        items={shopItemsForBay(bay.slug, vehicle)}
+        emptyHint={
+          vehicle
+            ? "This bay is a procedure. No consumable list yet."
+            : "Select a vehicle in the header to build the list."
+        }
+      />
       <div className="steel-panel min-h-[220px] grid place-items-center text-center px-6">
         <p className="text-garage-steel">3D for this bay is next. Oil change is the live interactive bay.</p>
         <Link href="/oil-change" className="mt-3 text-garage-amber uppercase tracking-widest text-xs hover:underline">
