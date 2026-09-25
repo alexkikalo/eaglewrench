@@ -11,39 +11,50 @@ export function BayStub({ bay }: { bay: Bay }) {
   const { vehicle, ready } = useVehicle();
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 space-y-4">
-      <p className="text-xs uppercase tracking-[0.3em] text-garage-amber">Bay</p>
-      <h1 className="font-stencil text-5xl tracking-wide">{bay.label}</h1>
-      <p className="text-garage-steel max-w-prose">{bay.summary}</p>
-      <DisclaimerBanner />
-      <div className="steel-panel p-4 text-sm">
-        {!ready ? (
-          <p className="text-garage-steel">Loading vehicle…</p>
-        ) : vehicle ? (
-          <p>
-            <span className="uppercase tracking-widest text-garage-amber text-[10px]">This vehicle</span>
-            <span className="block mt-1 text-lg">{vehicleChipLabel(vehicle)}</span>
-            <span className="block text-garage-steel">{vehicle.engine}</span>
-          </p>
-        ) : (
-          <p className="text-garage-steel">Select a vehicle in the header. Specs will overlay this bay when they exist.</p>
-        )}
+    <div className="pt-4">
+      <div className="mx-auto max-w-6xl px-4 mb-2">
+        <p className="text-xs uppercase tracking-[0.3em] text-garage-amber">Bay</p>
+        <h1 className="font-stencil text-5xl tracking-wide">{bay.label}</h1>
+        <p className="mt-2 text-garage-steel max-w-prose">{bay.summary}</p>
       </div>
-      <FindParts
-        items={shopItemsForBay(bay.slug, vehicle)}
-        emptyHint={vehicle ? "This bay is a procedure. No consumable list yet." : "Select a vehicle in the header to build the list."}
-      />
-      <div className="steel-panel min-h-[220px] grid place-items-center text-center px-6">
-        <p className="text-garage-steel">3D for this job is not built yet. The sequence below still stands.</p>
+      <div className="mx-auto max-w-6xl px-4 py-6 space-y-4">
+        <DisclaimerBanner />
+        <div className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-4">
+          <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[560px] relative grid place-items-center px-6 text-center">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber absolute left-3 top-3">{bay.label}</p>
+              <p className="text-garage-steel">3D for this job is not built yet.</p>
+            </div>
+          </section>
+          <section className="steel-panel p-4 space-y-4">
+            <div className="border border-garage-amber/40 p-3 text-sm">
+              {!ready ? (
+                <p className="text-garage-steel">Loading vehicle…</p>
+              ) : vehicle ? (
+                <>
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This vehicle</p>
+                  <p className="font-semibold mt-1">{vehicleChipLabel(vehicle)}</p>
+                  <p className="text-garage-steel mt-1">{vehicle.engine}</p>
+                </>
+              ) : (
+                <p className="text-garage-steel">Select a vehicle in the header. Specs overlay this bay when they exist.</p>
+              )}
+            </div>
+            <FindParts
+              items={shopItemsForBay(bay.slug, vehicle)}
+              emptyHint={vehicle ? "This bay is a procedure. No consumable list yet." : "Select a vehicle in the header to build the list."}
+            />
+            <ol className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
+              {bay.steps.map((step, i) => (
+                <li key={step} className="border border-white/10 px-3 py-2">
+                  <p className="font-stencil text-xl text-garage-amber">{String(i + 1).padStart(2, "0")}</p>
+                  <p className="text-sm text-garage-steel mt-1">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </div>
       </div>
-      <ol className="space-y-3">
-        {bay.steps.map((step, i) => (
-          <li key={step} className="steel-panel p-4">
-            <p className="font-stencil text-2xl text-garage-amber">{String(i + 1).padStart(2, "0")}</p>
-            <p className="mt-1 text-garage-steel">{step}</p>
-          </li>
-        ))}
-      </ol>
     </div>
   );
 }
