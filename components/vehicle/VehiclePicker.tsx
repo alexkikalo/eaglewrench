@@ -28,72 +28,43 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
 
   return createPortal(
     <>
-      <button
-        type="button"
-        className="fixed inset-0 z-[80] bg-black/45"
-        aria-label="Close vehicle panel"
-        onClick={onClose}
-      />
-      <aside
-        className="fixed top-0 right-0 z-[90] h-dvh w-full max-w-md overflow-y-auto border-l border-white/15 bg-[#121417] p-4 shadow-bay"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="vehicle-panel-title"
-      >
+      <button type="button" className="fixed inset-0 z-[80] bg-black/45" aria-label="Close vehicle panel" onClick={onClose} />
+      <aside className="fixed top-0 right-0 z-[90] h-dvh w-full max-w-md overflow-y-auto border-l border-white/15 bg-[#121417] p-4 shadow-bay" role="dialog" aria-modal="true" aria-labelledby="vehicle-panel-title">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-garage-amber">Bay vehicle</p>
-            <h2 id="vehicle-panel-title" className="font-stencil text-3xl tracking-wide">
-              Select engine
-            </h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-garage-amber">Your vehicle</p>
+            <h2 id="vehicle-panel-title" className="font-stencil text-3xl tracking-wide">Select vehicle</h2>
           </div>
           <button type="button" onClick={onClose} className="border border-white/20 p-2 hover:border-garage-amber" aria-label="Close vehicle panel">
             <X className="h-4 w-4" />
           </button>
         </div>
         <p className="text-sm text-garage-steel mt-3">
-          Saved on this phone. Every future bay reads this selection. The 3D model stays the teaching stand-in.
+          Saved on this device. Oil, tires, wipers, and every bay after this one will use it. 3D models stay generic until a vehicle-specific one exists.
         </p>
         <div className="grid gap-3 mt-4">
           <Field label="Year">
             <select value={year} onChange={(e) => { const next = e.target.value ? Number(e.target.value) : ""; setYear(next); setMake(""); setModel(""); }}>
               <option value="">Select year</option>
-              {years.map((y) => (
-                <option key={y} value={y}>{y}</option>
-              ))}
+              {years.map((y) => (<option key={y} value={y}>{y}</option>))}
             </select>
           </Field>
           <Field label="Make">
             <select value={make} disabled={!year} onChange={(e) => { setMake(e.target.value); setModel(""); }}>
               <option value="">Select make</option>
-              {makes.map((m) => (
-                <option key={m} value={m}>{m}</option>
-              ))}
+              {makes.map((m) => (<option key={m} value={m}>{m}</option>))}
             </select>
           </Field>
           <Field label="Model">
             <select value={model} disabled={!make} onChange={(e) => setModel(e.target.value)}>
               <option value="">Select model</option>
-              {models.map((m) => (
-                <option key={m} value={m}>{m}</option>
-              ))}
+              {models.map((m) => (<option key={m} value={m}>{m}</option>))}
             </select>
           </Field>
           <Field label="Engine">
-            <select
-              value={engines.some((eng) => eng.id === vehicle?.id) ? vehicle!.id : ""}
-              disabled={!model}
-              onChange={(e) => {
-                if (e.target.value) {
-                  setVehicleId(e.target.value);
-                  onClose();
-                }
-              }}
-            >
+            <select value={engines.some((eng) => eng.id === vehicle?.id) ? vehicle!.id : ""} disabled={!model} onChange={(e) => { if (e.target.value) { setVehicleId(e.target.value); onClose(); } }}>
               <option value="">{engines.length ? "Select engine" : "—"}</option>
-              {engines.map((eng) => (
-                <option key={eng.id} value={eng.id}>{eng.engine}</option>
-              ))}
+              {engines.map((eng) => (<option key={eng.id} value={eng.id}>{eng.engine}</option>))}
             </select>
           </Field>
         </div>
@@ -104,12 +75,12 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
             <p className="text-garage-steel mt-1">{preview.oil.spec}</p>
             <p className="text-xs text-garage-steel mt-2">Confirm on the fill cap and owner’s manual. {preview.oil.source}.</p>
             <button type="button" className="mt-3 w-full px-4 py-2 bg-garage-amber text-garage-950 font-stencil tracking-[0.16em]" onClick={() => { setVehicleId(preview.id); onClose(); }}>
-              USE THIS ENGINE
+              USE THIS VEHICLE
             </button>
           </div>
         ) : null}
         <button type="button" className="mt-4 text-xs uppercase tracking-widest text-garage-steel hover:text-garage-amber" onClick={() => { setVehicleId(null); onClose(); }}>
-          Clear — teaching bay (no vehicle)
+          Clear vehicle
         </button>
       </aside>
     </>,
