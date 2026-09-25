@@ -33,6 +33,22 @@ export const BAYS: Bay[] = [
     ],
   },
   {
+    slug: "tire-change",
+    href: "/tire-change",
+    label: "Tire change",
+    status: "basic",
+    summary: "Swap a damaged or worn tire for a spare or a new one. Not the same job as rotation.",
+    steps: [
+      "Park on level ground, out of traffic. Hazard lights on. Parking brake set. Chock the opposite wheel.",
+      "Read the size on the sidewall and the door-jamb placard. The spare may be a limited-use compact — treat it that way.",
+      "Loosen the lug nuts while the tire is still on the ground. Do not remove them yet.",
+      "Lift only at the published jack point. Set a stand if you have one. Never crawl under a vehicle held only by a scissor jack.",
+      "Finish removing the nuts. Pull the wheel straight off. Seat the replacement on the hub.",
+      "Start every lug nut by hand. Lower the vehicle. Torque in a star pattern to the published spec. Set the pressure to the placard, not the sidewall max.",
+      "Stow the old wheel. If you used a compact spare, get a full-size tire mounted before highway miles.",
+    ],
+  },
+  {
     slug: "wipers",
     href: "/wipers",
     label: "Wiper replacement",

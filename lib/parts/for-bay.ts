@@ -64,6 +64,15 @@ export function shopItemsForBay(baySlug: string, vehicle: Vehicle | null): ShopI
       ];
     case "tire-rotation":
       return [];
+    case "tire-change":
+      return [
+        {
+          id: "tire",
+          name: "Tire",
+          detail: `Size is on the sidewall and the door-jamb placard for ${name}. Do not guess.`,
+          search: `${name} tire`,
+        },
+      ];
     default:
       return [];
   }
