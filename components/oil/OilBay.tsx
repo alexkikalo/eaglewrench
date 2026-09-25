@@ -49,25 +49,27 @@ function CameraRig({
 function Lights() {
   return (
     <>
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[4, 6, 3]} intensity={1.15} castShadow color="#f0e2b8" />
-      <spotLight position={[-3, 5, 2]} intensity={0.6} color="#d4a017" angle={0.5} penumbra={0.6} />
-      <pointLight position={[0, -0.2, 2]} intensity={0.25} color="#8b929c" />
+      <hemisphereLight args={["#f3ead2", "#3d433c", 1.05]} />
+      <ambientLight intensity={0.72} />
+      <directionalLight position={[4, 6, 3]} intensity={1.85} castShadow color="#fff4d8" />
+      <directionalLight position={[-3, 2.4, -2]} intensity={0.55} color="#9ec4ff" />
+      <spotLight position={[-2.4, 5.2, 2.4]} intensity={1.15} color="#ffd978" angle={0.55} penumbra={0.55} />
+      <pointLight position={[0.2, 0.4, 2.4]} intensity={0.7} color="#ffe7b0" />
     </>
   );
 }
 
 export function OilBay(props: BayProps) {
   return (
-    <div className="h-full min-h-[320px] w-full bg-[#0e1013] shadow-bay">
+    <div className="h-full min-h-[320px] w-full bg-[#2a3038] shadow-bay">
       <Canvas
         shadows
         dpr={[1, 1.5]}
         camera={{ position: props.camera.position, fov: 42, near: 0.1, far: 40 }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
       >
-        <color attach="background" args={["#0e1013"]} />
-        <fog attach="fog" args={["#0e1013", 8, 18]} />
+        <color attach="background" args={["#2a3038"]} />
+        <fog attach="fog" args={["#2a3038", 12, 28]} />
         <Lights />
         <Suspense fallback={null}>
           {useGlb ? (
