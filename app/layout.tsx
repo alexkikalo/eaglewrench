@@ -21,21 +21,20 @@ const body = Source_Sans_3({
 export const metadata: Metadata = {
   metadataBase: new URL("https://eaglewrench.com"),
   title: {
-    default: "EagleWrench — Interactive Automotive Repair Education",
+    default: "EagleWrench — Be Your Own Mechanic",
     template: "%s | EagleWrench",
   },
   description:
-    "Stop monkeying around. Soar — be your own mechanic. 3D garage lessons for oil, tires, wipers, and the rest of the list. Educational only.",
+    "Stop monkeying around. Soar — be your own mechanic. 3D garage for oil, tires, wipers, and the rest of the list. Demonstration only.",
   keywords: [
     "oil change",
-    "automotive education",
     "DIY car repair",
-    "3D repair demo",
+    "3D garage",
     "EagleWrench",
   ],
   openGraph: {
-    title: "EagleWrench — Interactive Automotive Repair Education",
-    description: "Stop monkeying around. Soar — be your own mechanic. Educational 3D garage. Safety first.",
+    title: "EagleWrench — Be Your Own Mechanic",
+    description: "Stop monkeying around. Soar — be your own mechanic. 3D garage. Safety first.",
     url: "https://eaglewrench.com",
     siteName: "EagleWrench",
     locale: "en_US",
@@ -55,10 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${stencil.variable} ${body.variable}`}>
       <body className="font-body min-h-screen flex flex-col antialiased">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-garage-amber text-garage-950 px-3 py-2"
-        >
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-garage-amber text-garage-950 px-3 py-2">
           Skip to content
         </a>
         <Providers>
