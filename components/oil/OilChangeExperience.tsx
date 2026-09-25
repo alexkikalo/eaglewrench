@@ -11,7 +11,6 @@ import {
 } from "lucide-react";
 import { OilBay } from "@/components/oil/OilBay";
 import { MISTAKES, OIL_STEPS, PARTS, type PartId } from "@/lib/oil-content";
-import { DisclaimerBanner } from "@/components/Disclaimer";
 import { FindParts } from "@/components/parts/FindParts";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
 import { shopItemsForBay } from "@/lib/parts/for-bay";
@@ -67,10 +66,9 @@ export function OilChangeExperience() {
   }
 
   return (
-    <div className="w-full px-4 py-6 space-y-4">
-      <DisclaimerBanner />
-      <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[calc(100dvh-8rem)] relative">
+    <div className="w-full px-4 py-4">
+      <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[calc(100dvh-10rem)] relative">
           <OilBay
             explode={explode}
             selected={selected}
@@ -84,29 +82,27 @@ export function OilChangeExperience() {
             camera={camera}
             resetToken={resetToken}
           />
-          <div className="absolute left-3 top-3 text-[10px] uppercase tracking-[0.25em] text-garage-amber/80">
-            Bay 01 · Oil system
-          </div>
-        </section>
-        <section className="steel-panel p-4 space-y-4 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto">
-          <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-2 border border-white/15 px-3 py-2 text-xs uppercase tracking-widest hover:border-garage-amber">
-              <RotateCw className="h-3.5 w-3.5" />
-              {autoRotate ? "Stop rotate" : "Auto-rotate"}
+          <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-2">
+            <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-1.5 border border-white/20 bg-garage-950/70 px-2.5 py-1.5 text-[10px] uppercase tracking-widest hover:border-garage-amber">
+              <RotateCw className="h-3 w-3" />
+              {autoRotate ? "Stop" : "Orbit"}
             </button>
-            <button type="button" onClick={resetView} className="inline-flex items-center gap-2 border border-white/15 px-3 py-2 text-xs uppercase tracking-widest hover:border-garage-amber">
-              <RotateCcw className="h-3.5 w-3.5" />
+            <button type="button" onClick={resetView} className="inline-flex items-center gap-1.5 border border-white/20 bg-garage-950/70 px-2.5 py-1.5 text-[10px] uppercase tracking-widest hover:border-garage-amber">
+              <RotateCcw className="h-3 w-3" />
               Reset
             </button>
-            <button type="button" onClick={() => setDraining((v) => !v)} className="inline-flex items-center gap-2 border border-safety/50 px-3 py-2 text-xs uppercase tracking-widest text-[#ffb4b4] hover:border-safety">
-              <Droplets className="h-3.5 w-3.5" />
-              {draining ? "Stop drain" : "Drain oil"}
+            <button type="button" onClick={() => setDraining((v) => !v)} className="inline-flex items-center gap-1.5 border border-safety/50 bg-garage-950/70 px-2.5 py-1.5 text-[10px] uppercase tracking-widest text-[#ffb4b4] hover:border-safety">
+              <Droplets className="h-3 w-3" />
+              {draining ? "Stop drain" : "Drain"}
             </button>
           </div>
-          <label className="block text-xs uppercase tracking-widest text-garage-steel">
-            Exploded view
-            <input type="range" min={0} max={1} step={0.01} value={explode} onChange={(e) => setExplode(Number(e.target.value))} className="mt-2 w-full accent-garage-amber" />
+          <label className="absolute left-3 bottom-3 z-10 w-40 text-[10px] uppercase tracking-widest text-garage-steel bg-garage-950/70 border border-white/15 px-2 py-1">
+            Explode
+            <input type="range" min={0} max={1} step={0.01} value={explode} onChange={(e) => setExplode(Number(e.target.value))} className="mt-1 w-full accent-garage-amber" />
           </label>
+        </section>
+
+        <section className="steel-panel p-4 space-y-4 lg:max-h-[calc(100dvh-10rem)] lg:overflow-y-auto">
           {spec ? (
             <div className="border border-garage-amber/40 p-3">
               <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This vehicle</p>
@@ -117,13 +113,16 @@ export function OilChangeExperience() {
               <p className="text-[11px] text-garage-steel mt-2">Confirm on the fill cap. 3D model stays generic. {spec.source}.</p>
             </div>
           ) : null}
+
           <FindParts items={shopItemsForBay("oil-change", vehicle)} />
+
           {selected ? (
             <div className="border border-white/10 p-3">
               <p className="font-stencil text-2xl tracking-widest text-garage-amber">{PARTS[selected].label}</p>
               <p className="text-sm text-garage-steel mt-1">{overlayPartHint(selected, vehicle)}</p>
             </div>
           ) : null}
+
           <ol className="space-y-2 pr-1">
             {steps.map((s) => {
               const active = step === s.id;
@@ -154,57 +153,59 @@ export function OilChangeExperience() {
               );
             })}
           </ol>
+
+          <div className="border border-white/10">
+            <div className="flex border-b border-white/10">
+              {([["how", "How it works"], ["tools", "Tools / safety"], ["mistakes", "Mistakes"]] as const).map(([id, label]) => (
+                <button key={id} type="button" onClick={() => setTab(id)} className={`px-3 py-2 text-[10px] uppercase tracking-widest ${tab === id ? "text-garage-amber border-b-2 border-garage-amber" : "text-garage-steel"}`}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="p-3 text-sm leading-relaxed">
+              {tab === "how" ? (
+                <div className="space-y-3">
+                  <p>Oil is a pressurized film. The pump pulls from the pan, pushes through the filter, and feeds bearings, cams, and walls. Gravity returns it to the pan. A change swaps contaminated oil and a loaded filter before the film fails.</p>
+                  <p className="text-garage-steel">Use Drain in the bay to watch the sump empty. That is a preview — real drain time depends on viscosity and temperature. Use Explode to separate the pan, plug, and filter.</p>
+                </div>
+              ) : null}
+              {tab === "tools" ? (
+                <ul className="space-y-3">
+                  {tools.map((t) => (
+                    <li key={t.name} className="flex gap-3">
+                      <Wrench className="h-4 w-4 text-garage-amber shrink-0 mt-0.5" />
+                      <span><span className="font-semibold">{t.name}. </span><span className="text-garage-steel">{t.why}</span></span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {tab === "mistakes" ? (
+                <ul className="space-y-2">
+                  {MISTAKES.map((m) => (
+                    <li key={m} className="flex gap-3">
+                      <ShieldAlert className="h-4 w-4 text-safety shrink-0 mt-0.5" />
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </div>
+
+          <section>
+            <h2 className="font-stencil text-3xl tracking-widest text-garage-amber mb-2">Gear</h2>
+            <p className="text-xs uppercase tracking-widest text-garage-steel mb-3">Affiliate placeholders — no paid links live yet</p>
+            <div className="grid gap-3">
+              {affiliates.map((a) => (
+                <a key={a.id} href="#" rel="sponsored nofollow" className="border border-white/10 p-3 hover:border-garage-amber/60" onClick={(e) => e.preventDefault()}>
+                  <p className="font-semibold">{a.name}</p>
+                  <p className="text-sm text-garage-steel mt-1">{a.note}</p>
+                </a>
+              ))}
+            </div>
+          </section>
         </section>
       </div>
-      <section className="steel-panel">
-        <div className="flex border-b border-white/10">
-          {([["how", "How oil works"], ["tools", "Tools & safety"], ["mistakes", "Common mistakes"]] as const).map(([id, label]) => (
-            <button key={id} type="button" onClick={() => setTab(id)} className={`px-4 py-3 text-xs uppercase tracking-widest ${tab === id ? "text-garage-amber border-b-2 border-garage-amber" : "text-garage-steel"}`}>
-              {label}
-            </button>
-          ))}
-        </div>
-        <div className="p-4 text-sm leading-relaxed">
-          {tab === "how" ? (
-            <div className="space-y-3">
-              <p>Oil is a pressurized film. The pump pulls from the pan, pushes through the filter, and feeds bearings, cams, and walls. Gravity returns it to the pan. A change swaps contaminated oil and a loaded filter before the film fails.</p>
-              <p className="text-garage-steel">Use Drain in the bay to watch the sump empty. That is a preview — real drain time depends on viscosity and temperature. Use Explode to separate the pan, plug, and filter.</p>
-            </div>
-          ) : null}
-          {tab === "tools" ? (
-            <ul className="space-y-3">
-              {tools.map((t) => (
-                <li key={t.name} className="flex gap-3">
-                  <Wrench className="h-4 w-4 text-garage-amber shrink-0 mt-0.5" />
-                  <span><span className="font-semibold">{t.name}. </span><span className="text-garage-steel">{t.why}</span></span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-          {tab === "mistakes" ? (
-            <ul className="space-y-2">
-              {MISTAKES.map((m) => (
-                <li key={m} className="flex gap-3">
-                  <ShieldAlert className="h-4 w-4 text-safety shrink-0 mt-0.5" />
-                  {m}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      </section>
-      <section>
-        <h2 className="font-stencil text-3xl tracking-widest text-garage-amber mb-3">Gear</h2>
-        <p className="text-xs uppercase tracking-widest text-garage-steel mb-3">Affiliate placeholders — no paid links live yet</p>
-        <div className="grid sm:grid-cols-3 gap-3">
-          {affiliates.map((a) => (
-            <a key={a.id} href="#" rel="sponsored nofollow" className="steel-panel p-4 hover:border-garage-amber/60" onClick={(e) => e.preventDefault()}>
-              <p className="font-semibold">{a.name}</p>
-              <p className="text-sm text-garage-steel mt-1">{a.note}</p>
-            </a>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
