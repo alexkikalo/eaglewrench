@@ -67,10 +67,10 @@ export function OilChangeExperience() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 space-y-4">
+    <div className="w-full px-4 py-6 space-y-4">
       <DisclaimerBanner />
-      <div className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-4">
-        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[560px] relative">
+      <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[calc(100dvh-8rem)] relative">
           <OilBay
             explode={explode}
             selected={selected}
@@ -88,7 +88,7 @@ export function OilChangeExperience() {
             Bay 01 · Oil system
           </div>
         </section>
-        <section className="steel-panel p-4 space-y-4">
+        <section className="steel-panel p-4 space-y-4 lg:max-h-[calc(100dvh-8rem)] lg:overflow-y-auto">
           <div className="flex flex-wrap gap-2">
             <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-2 border border-white/15 px-3 py-2 text-xs uppercase tracking-widest hover:border-garage-amber">
               <RotateCw className="h-3.5 w-3.5" />
@@ -124,7 +124,7 @@ export function OilChangeExperience() {
               <p className="text-sm text-garage-steel mt-1">{overlayPartHint(selected, vehicle)}</p>
             </div>
           ) : null}
-          <ol className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
+          <ol className="space-y-2 pr-1">
             {steps.map((s) => {
               const active = step === s.id;
               const complete = done.includes(s.id);
