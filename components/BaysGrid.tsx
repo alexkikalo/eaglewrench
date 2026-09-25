@@ -3,7 +3,7 @@ import { baysAlphabetical } from "@/lib/bays";
 
 export function BaysGrid() {
   return (
-    <section id="bays" className="mx-auto max-w-6xl px-4 py-16">
+    <section id="bays" className="w-full px-4 py-16">
       <p className="text-xs uppercase tracking-[0.35em] text-garage-amber mb-2">Bays</p>
       <h2 className="font-stencil text-4xl tracking-wide">Pick the job you need</h2>
       <p className="mt-2 mb-8 text-garage-steel max-w-prose">These are separate jobs. Open one. Skip the rest.</p>
