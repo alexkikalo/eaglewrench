@@ -24,13 +24,8 @@ Open [http://localhost:3000](http://localhost:3000). Oil bay: [http://localhost:
 
 ## Your logo
 
-Do not generate a new mark. Put the existing file at:
-
-```
-public/brand/logo.png
-```
-
-Then set `NEXT_PUBLIC_HAS_LOGO=true` in `.env.local` and in the Vercel project env.
+Existing mark is in place at `public/brand/logo.png` (user-supplied; not generated).
+Source scan kept as `public/brand/logo-source.jpg`. Do not replace with an AI mark.
 
 ## Optional GLB
 
@@ -38,11 +33,11 @@ Drop a low-poly `public/models/oil-system.glb` and set `NEXT_PUBLIC_USE_GLB=true
 
 ## Waitlist
 
-Set `NEXT_PUBLIC_FORMSPREE_ID` to your Formspree form id (the `xxxxxxxx` in `formspree.io/f/xxxxxxxx`). Without it the form tells the visitor the endpoint is not wired.
+Deferred. Do not wire Formspree until Alex asks.
 
 ## Domain
 
-After the first Vercel deploy, attach `eaglewrench.com` and `www.eaglewrench.com` in the Vercel project, then point DNS:
+After the first Vercel deploy, attach `eaglewrench.com` and `www.eaglewrench.com` in the Vercel project, then point DNS at Vercel (Squarespace stays registrar only):
 
-- `eaglewrench.com` A record → `10.0.1.2` (confirm in the Vercel domain panel)
+- `eaglewrench.com` A record → confirm in the Vercel domain panel
 - `www` CNAME → `cname.vercel-dns.com`
