@@ -12,6 +12,7 @@ import {
   yearsInCatalog,
 } from "@/lib/vehicle/catalog";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
+import { ZipField } from "@/components/location/ZipField";
 
 export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { vehicle, setVehicleId } = useVehicle();
@@ -45,8 +46,9 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
             <X className="h-4 w-4" />
           </button>
         </div>
-        <p className="text-sm text-garage-steel mt-3">Saved on this device. Every bay uses this vehicle.</p>
+        <p className="text-sm text-garage-steel mt-3">Saved on this device. Every bay uses this vehicle and ZIP.</p>
         <div className="grid gap-3 mt-4">
+          <ZipField />
           <Field label="Year">
             <select value={year} onChange={(e) => { const next = e.target.value ? Number(e.target.value) : ""; setYear(next); setMake(""); setModel(""); setEngineId(""); }}>
               <option value="">Select year</option>
