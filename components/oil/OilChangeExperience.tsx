@@ -3,8 +3,17 @@
 import { useMemo, useState } from "react";
 import { Check, Droplets, RotateCcw, RotateCw, ShieldAlert, Wrench } from "lucide-react";
 import { OilBay } from "@/components/oil/OilBay";
-import { AFFILIATES, MISTAKES, OIL_STEPS, PARTS, TOOLS, type PartId } from "@/lib/oil-content";
+import { MISTAKES, OIL_STEPS, PARTS, type PartId } from "@/lib/oil-content";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { VehicleChip } from "@/components/vehicle/VehicleChip";
+import { useVehicle } from "@/components/vehicle/VehicleProvider";
+import {
+  overlayAffiliates,
+  overlayOilSteps,
+  overlayPartHint,
+  overlayTools,
+  specSummary,
+} from "@/lib/vehicle/overlay";
 
 type Tab = "how" | "tools" | "mistakes";
 
@@ -22,14 +31,19 @@ export function OilChangeExperience() {
   const [draining, setDraining] = useState(false);
   const [tab, setTab] = useState<Tab>("how");
   const [resetToken, setResetToken] = useState(0);
+  const { vehicle } = useVehicle();
+  const steps = useMemo(() => overlayOilSteps(OIL_STEPS, vehicle), [vehicle]);
+  const tools = useMemo(() => overlayTools(vehicle), [vehicle]);
+  const affiliates = useMemo(() => overlayAffiliates(vehicle), [vehicle]);
+  const spec = vehicle ? specSummary(vehicle) : null;
 
   const camera = useMemo(() => {
     if (step == null) return DEFAULT_CAM;
-    return OIL_STEPS[step - 1]?.camera ?? DEFAULT_CAM;
-  }, [step]);
+    return steps[step - 1]?.camera ?? DEFAULT_CAM;
+  }, [step, steps]);
 
   function pickStep(id: number) {
-    const s = OIL_STEPS[id - 1];
+    const s = steps[id - 1];
     setStep(id);
     setSelected(s.part);
     if (s.part === "oilVolume") setDraining(true);
@@ -54,7 +68,7 @@ export function OilChangeExperience() {
             selected={selected}
             onSelect={(id) => {
               setSelected(id);
-              const match = OIL_STEPS.find((s) => s.part === id);
+              const match = steps.find((s) => s.part === id);
               if (match) setStep(match.id);
             }}
             draining={draining}
@@ -68,6 +82,7 @@ export function OilChangeExperience() {
         </section>
         <section className="steel-panel p-4 space-y-4">
           <div className="flex flex-wrap gap-2">
+            <VehicleChip />
             <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-2 border border-white/15 px-3 py-2 text-xs uppercase tracking-widest hover:border-garage-amber">
               <RotateCw className="h-3.5 w-3.5" />
               {autoRotate ? "Stop rotate" : "Auto-rotate"}
@@ -85,14 +100,24 @@ export function OilChangeExperience() {
             Exploded view
             <input type="range" min={0} max={1} step={0.01} value={explode} onChange={(e) => setExplode(Number(e.target.value))} className="mt-2 w-full accent-garage-amber" />
           </label>
+          {spec ? (
+            <div className="border border-garage-amber/40 p-3">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This engine</p>
+              <p className="font-semibold mt-1">{spec.title}</p>
+              <p className="text-sm mt-1">{spec.line}</p>
+              <p className="text-xs text-garage-steel mt-1">{spec.spec}</p>
+              {spec.note ? <p className="text-xs text-garage-steel mt-1">{spec.note}</p> : null}
+              <p className="text-[11px] text-garage-steel mt-2">Confirm on the fill cap. 3D model stays generic. {spec.source}.</p>
+            </div>
+          ) : null}
           {selected ? (
             <div className="border border-white/10 p-3">
               <p className="font-stencil text-2xl tracking-widest text-garage-amber">{PARTS[selected].label}</p>
-              <p className="text-sm text-garage-steel mt-1">{PARTS[selected].hint}</p>
+              <p className="text-sm text-garage-steel mt-1">{overlayPartHint(selected, vehicle)}</p>
             </div>
           ) : null}
           <ol className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
-            {OIL_STEPS.map((s) => {
+            {steps.map((s) => {
               const active = step === s.id;
               const complete = done.includes(s.id);
               return (
@@ -140,7 +165,7 @@ export function OilChangeExperience() {
           ) : null}
           {tab === "tools" ? (
             <ul className="space-y-3">
-              {TOOLS.map((t) => (
+              {tools.map((t) => (
                 <li key={t.name} className="flex gap-3">
                   <Wrench className="h-4 w-4 text-garage-amber shrink-0 mt-0.5" />
                   <span><span className="font-semibold">{t.name}. </span><span className="text-garage-steel">{t.why}</span></span>
@@ -164,7 +189,7 @@ export function OilChangeExperience() {
         <h2 className="font-stencil text-3xl tracking-widest text-garage-amber mb-3">Gear</h2>
         <p className="text-xs uppercase tracking-widest text-garage-steel mb-3">Affiliate placeholders — no paid links live yet</p>
         <div className="grid sm:grid-cols-3 gap-3">
-          {AFFILIATES.map((a) => (
+          {affiliates.map((a) => (
             <a key={a.id} href="#" rel="sponsored nofollow" className="steel-panel p-4 hover:border-garage-amber/60" onClick={(e) => e.preventDefault()}>
               <p className="font-semibold">{a.name}</p>
               <p className="text-sm text-garage-steel mt-1">{a.note}</p>
