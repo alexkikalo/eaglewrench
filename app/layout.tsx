@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Providers } from "@/components/Providers";
+import { SafetyBar } from "@/components/Disclaimer";
 
 const stencil = Bebas_Neue({
   weight: "400",
@@ -26,12 +27,7 @@ export const metadata: Metadata = {
   },
   description:
     "Stop monkeying around. Soar — be your own mechanic. 3D garage for oil, tires, wipers, and the rest of the list. Demonstration only.",
-  keywords: [
-    "oil change",
-    "DIY car repair",
-    "3D garage",
-    "EagleWrench",
-  ],
+  keywords: ["oil change", "DIY car repair", "3D garage", "EagleWrench"],
   openGraph: {
     title: "EagleWrench — Be Your Own Mechanic",
     description: "Stop monkeying around. Soar — be your own mechanic. 3D garage. Safety first.",
@@ -59,7 +55,8 @@ export default function RootLayout({
         </a>
         <Providers>
           <Header />
-          <main id="main" className="flex-1">
+          <SafetyBar />
+          <main id="main" className="flex-1 w-full">
             {children}
           </main>
           <Footer />
