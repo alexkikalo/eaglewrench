@@ -22,8 +22,8 @@ function useExplode(id: PartId, explode: number): [number, number, number] {
 function HighlightMaterial({
   color,
   selected,
-  metalness = 0.55,
-  roughness = 0.4,
+  metalness = 0.42,
+  roughness = 0.32,
 }: {
   color: string;
   selected: boolean;
@@ -88,7 +88,7 @@ function DrainStream({ active }: { active: boolean }) {
           }}
         >
           <sphereGeometry args={[0.035, 8, 8]} />
-          <meshStandardMaterial color="#5a3a12" roughness={0.3} metalness={0.1} />
+          <meshStandardMaterial color="#d27a1a" roughness={0.25} metalness={0.08} />
         </mesh>
       ))}
     </group>
@@ -114,12 +114,12 @@ export function ProceduralOilSystem({
     <group>
       <mesh position={[0, 0.35, 0]} castShadow>
         <boxGeometry args={[1.6, 0.9, 1.1]} />
-        <meshStandardMaterial color="#3a3f46" metalness={0.4} roughness={0.55} />
+        <meshStandardMaterial color="#6b7380" metalness={0.28} roughness={0.48} />
       </mesh>
       <group position={pan} onClick={(e) => { e.stopPropagation(); onSelect("oilPan"); }}>
         <mesh position={[0, -0.35, 0]} castShadow>
           <boxGeometry args={[1.45, 0.28, 0.95]} />
-          <HighlightMaterial color="#5c636c" selected={selected === "oilPan"} />
+          <HighlightMaterial color="#8d96a2" selected={selected === "oilPan"} />
         </mesh>
         <PartLabel text={PARTS.oilPan.label} visible={showLabels && selected === "oilPan"} />
       </group>
@@ -137,21 +137,21 @@ export function ProceduralOilSystem({
       <group position={[oil[0], oil[1] - 0.38, oil[2]]} onClick={(e) => { e.stopPropagation(); onSelect("oilVolume"); }}>
         <mesh>
           <boxGeometry args={[1.2, 0.12, 0.75]} />
-          <meshStandardMaterial color={draining ? "#3d2208" : "#6b3e0d"} transparent opacity={draining ? 0.35 : 0.75} roughness={0.2} metalness={0.05} />
+          <meshStandardMaterial color={draining ? "#7a3f0c" : "#c46a14"} transparent opacity={draining ? 0.45 : 0.88} roughness={0.2} metalness={0.05} />
         </mesh>
         <PartLabel text={PARTS.oilVolume.label} visible={showLabels && selected === "oilVolume"} />
       </group>
       <group position={[pad[0] - 0.55, pad[1] + 0.05, pad[2] + 0.05]} onClick={(e) => { e.stopPropagation(); onSelect("filterHousing"); }}>
         <mesh rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[0.16, 0.16, 0.08, 16]} />
-          <HighlightMaterial color="#2f3338" selected={selected === "filterHousing"} />
+          <HighlightMaterial color="#4e555e" selected={selected === "filterHousing"} />
         </mesh>
         <PartLabel text={PARTS.filterHousing.label} visible={showLabels && selected === "filterHousing"} />
       </group>
       <group position={[filter[0] - 0.82, filter[1] + 0.05, filter[2] + 0.05]} onClick={(e) => { e.stopPropagation(); onSelect("oilFilter"); }}>
         <mesh rotation={[0, 0, Math.PI / 2]} castShadow>
           <cylinderGeometry args={[0.18, 0.18, 0.42, 20]} />
-          <HighlightMaterial color="#d8d3c4" selected={selected === "oilFilter"} metalness={0.2} roughness={0.5} />
+          <HighlightMaterial color="#efe6d2" selected={selected === "oilFilter"} metalness={0.18} roughness={0.42} />
         </mesh>
         <PartLabel text={PARTS.oilFilter.label} visible={showLabels && selected === "oilFilter"} />
       </group>
@@ -169,15 +169,20 @@ export function ProceduralOilSystem({
       <group position={[cap[0] - 0.15, cap[1] + 0.88, cap[2]]} onClick={(e) => { e.stopPropagation(); onSelect("fillCap"); }}>
         <mesh>
           <cylinderGeometry args={[0.09, 0.09, 0.07, 16]} />
-          <HighlightMaterial color="#1f4d2a" selected={selected === "fillCap"} />
+          <HighlightMaterial color="#3f8f52" selected={selected === "fillCap"} />
         </mesh>
         <PartLabel text={PARTS.fillCap.label} visible={showLabels && selected === "fillCap"} />
       </group>
       <DrainStream active={draining} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.35, 0]} receiveShadow>
-        <planeGeometry args={[8, 8]} />
-        <meshStandardMaterial color="#16181c" roughness={0.9} metalness={0.2} />
+        <planeGeometry args={[12, 12]} />
+        <meshStandardMaterial color="#3a414b" roughness={0.78} metalness={0.12} />
       </mesh>
+      <mesh position={[0, 1.1, -4.2]} receiveShadow>
+        <planeGeometry args={[14, 7]} />
+        <meshStandardMaterial color="#4a5360" roughness={0.86} metalness={0.08} />
+      </mesh>
+      <gridHelper args={[10, 20, "#d4a017", "#5c6570"]} position={[0, -1.34, 0]} />
     </group>
   );
 }
