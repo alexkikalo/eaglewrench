@@ -1,7 +1,7 @@
 "use client";
 
-import { MapPin } from "lucide-react";
 import { useLocationZip } from "@/components/location/LocationProvider";
+import { ZipField } from "@/components/location/ZipField";
 import { itemSearchUrl, PARTS_STORES, storeLocatorUrl } from "@/lib/parts/stores";
 import type { ShopItem } from "@/lib/parts/types";
 
@@ -12,7 +12,7 @@ export function FindParts({
   items: ShopItem[];
   emptyHint?: string;
 }) {
-  const { zip, setZip, locate, locating } = useLocationZip();
+  const { zip } = useLocationZip();
 
   return (
     <div className="border border-white/10 p-3 space-y-3">
@@ -20,28 +20,7 @@ export function FindParts({
       <p className="text-xs text-garage-steel">
         Same ZIP on every bay. We send you to the store with the search already filled. Inventory is theirs.
       </p>
-      <label className="block text-[10px] uppercase tracking-[0.2em] text-garage-steel">
-        ZIP
-        <span className="mt-1 flex gap-2">
-          <input
-            inputMode="numeric"
-            autoComplete="postal-code"
-            maxLength={5}
-            value={zip}
-            onChange={(e) => setZip(e.target.value)}
-            placeholder="75019"
-            className="w-28 bg-garage-950 border border-white/15 px-2 py-2 text-sm text-garage-amber tracking-widest"
-          />
-          <button
-            type="button"
-            onClick={() => void locate()}
-            className="inline-flex items-center gap-1 border border-white/15 px-2 py-2 text-[10px] uppercase tracking-widest text-garage-steel hover:text-garage-amber"
-          >
-            <MapPin className="h-3 w-3" />
-            {locating ? "Locating…" : "Use location"}
-          </button>
-        </span>
-      </label>
+      <ZipField />
       {items.length === 0 ? (
         <p className="text-sm text-garage-steel">{emptyHint ?? "Select a vehicle to build the list."}</p>
       ) : (
