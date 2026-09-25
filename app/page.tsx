@@ -9,17 +9,14 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] text-garage-amber mb-3">
-              Higher than a monkey wrench
+              EagleWrench
             </p>
             <h1 className="font-stencil text-6xl md:text-7xl leading-[0.9] tracking-wide">
               STOP MONKEYING AROUND.
-              <span className="block text-garage-amber">SOAR. BE YOUR OWN MECHANIC.</span>
+              <span className="block text-garage-amber">BE YOUR OWN MECHANIC.</span>
             </h1>
             <p className="mt-6 text-lg text-garage-steel max-w-prose">
-              EagleWrench is a 3D garage for the jobs that keep a vehicle on the road — oil, tires,
-              wipers, and the rest of the list. Pick your vehicle once. Every bay reads it. See the
-              sequence, see the parts, and excel at the work. Demonstration only. No account
-              required.
+              3D bays for the jobs you actually do. Pick your vehicle once. No account.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/oil-change" className="bg-garage-amber text-garage-950 px-6 py-3 font-stencil tracking-[0.2em] text-xl hover:brightness-110">
