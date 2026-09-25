@@ -26,7 +26,7 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-[60] bg-black/70 p-4 overflow-y-auto">
       <div className="mx-auto max-w-lg steel-panel p-4 mt-8">
         <div className="flex items-start justify-between gap-3">
           <div>
