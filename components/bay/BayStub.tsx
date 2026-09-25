@@ -11,15 +11,14 @@ export function BayStub({ bay }: { bay: Bay }) {
   const { vehicle, ready } = useVehicle();
 
   return (
-    <div className="pt-4">
-      <div className="mx-auto max-w-6xl px-4 mb-2">
-        <p className="text-xs uppercase tracking-[0.3em] text-garage-amber">Bay</p>
-        <h1 className="font-stencil text-5xl tracking-wide">{bay.label}</h1>
-        <p className="mt-2 text-garage-steel max-w-prose">{bay.summary}</p>
-      </div>
-      <div className="mx-auto max-w-6xl px-4 py-6 space-y-4">
+    <div className="w-full px-4 py-4">
+      <p className="text-xs uppercase tracking-[0.3em] text-garage-amber">Bay</p>
+      <h1 className="font-stencil text-5xl tracking-wide">{bay.label}</h1>
+      <p className="mt-2 text-garage-steel max-w-prose">{bay.summary}</p>
+
+      <div className="mt-4 space-y-4">
         <DisclaimerBanner />
-        <div className="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-4">
+        <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[560px] relative grid place-items-center px-6 text-center">
             <div>
               <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber absolute left-3 top-3">{bay.label}</p>
