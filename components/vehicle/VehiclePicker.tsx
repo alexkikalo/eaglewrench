@@ -39,9 +39,7 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
             <X className="h-4 w-4" />
           </button>
         </div>
-        <p className="text-sm text-garage-steel mt-3">
-          Saved on this device. Oil, tires, wipers, and every bay after this one will use it. 3D models stay generic until a vehicle-specific one exists.
-        </p>
+        <p className="text-sm text-garage-steel mt-3">Saved on this device. Every bay uses this vehicle.</p>
         <div className="grid gap-3 mt-4">
           <Field label="Year">
             <select value={year} onChange={(e) => { const next = e.target.value ? Number(e.target.value) : ""; setYear(next); setMake(""); setModel(""); }}>
@@ -71,9 +69,7 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
         {preview ? (
           <div className="mt-4 border border-garage-amber/40 p-3 text-sm">
             <p className="font-semibold text-garage-amber">{vehicleLabel(preview)}</p>
-            <p className="mt-1">{preview.oil.viscosity} · {preview.oil.capacityWithFilterQt} qt with filter · {preview.oil.filterOem}</p>
-            <p className="text-garage-steel mt-1">{preview.oil.spec}</p>
-            <p className="text-xs text-garage-steel mt-2">Confirm on the fill cap and owner’s manual. {preview.oil.source}.</p>
+            <p className="text-garage-steel mt-1">{preview.engine}</p>
             <button type="button" className="mt-3 w-full px-4 py-2 bg-garage-amber text-garage-950 font-stencil tracking-[0.16em]" onClick={() => { setVehicleId(preview.id); onClose(); }}>
               USE THIS VEHICLE
             </button>
