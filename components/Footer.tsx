@@ -9,7 +9,7 @@ export function Footer() {
         <p className="text-xs leading-relaxed text-garage-steel">{LONG_DISCLAIMER}</p>
       </div>
       <div className="border-t border-white/5 px-4 py-4 text-center text-[11px] tracking-widest uppercase text-garage-steel/80">
-        © {new Date().getFullYear()} EagleWrench · eaglewrench.com · Education, not a shop ticket
+        © {new Date().getFullYear()} EagleWrench · eaglewrench.com · Demonstration, not a shop ticket
       </div>
     </footer>
   );

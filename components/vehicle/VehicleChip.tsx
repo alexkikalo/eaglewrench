@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Car } from "lucide-react";
-import { vehicleLabel } from "@/lib/vehicle/catalog";
+import { vehicleChipLabel } from "@/lib/vehicle/catalog";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
 import { VehiclePicker } from "@/components/vehicle/VehiclePicker";
 
@@ -19,7 +19,7 @@ export function VehicleChip() {
       >
         <Car className="h-3.5 w-3.5 shrink-0" />
         <span className="truncate">
-          {!ready ? "Vehicle…" : vehicle ? shortLabel(vehicleLabel(vehicle)) : "Select vehicle"}
+          {!ready ? "Vehicle…" : vehicle ? shortLabel(vehicleChipLabel(vehicle)) : "Select vehicle"}
         </span>
       </button>
       <VehiclePicker open={open} onClose={() => setOpen(false)} />
