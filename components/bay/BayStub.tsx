@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { DisclaimerBanner } from "@/components/Disclaimer";
 import { FindParts } from "@/components/parts/FindParts";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
@@ -32,17 +31,10 @@ export function BayStub({ bay }: { bay: Bay }) {
       </div>
       <FindParts
         items={shopItemsForBay(bay.slug, vehicle)}
-        emptyHint={
-          vehicle
-            ? "This bay is a procedure. No consumable list yet."
-            : "Select a vehicle in the header to build the list."
-        }
+        emptyHint={vehicle ? "This bay is a procedure. No consumable list yet." : "Select a vehicle in the header to build the list."}
       />
       <div className="steel-panel min-h-[220px] grid place-items-center text-center px-6">
-        <p className="text-garage-steel">3D for this bay is next. Oil change is the live interactive bay.</p>
-        <Link href="/oil-change" className="mt-3 text-garage-amber uppercase tracking-widest text-xs hover:underline">
-          Open oil change →
-        </Link>
+        <p className="text-garage-steel">3D for this job is not built yet. The sequence below still stands.</p>
       </div>
       <ol className="space-y-3">
         {bay.steps.map((step, i) => (

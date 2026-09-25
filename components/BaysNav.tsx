@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { BAYS } from "@/lib/bays";
+import { baysAlphabetical } from "@/lib/bays";
 
 export function BaysNav() {
   const [open, setOpen] = useState(false);
@@ -30,14 +30,7 @@ export function BaysNav() {
 
   return (
     <>
-      <button
-        ref={btnRef}
-        type="button"
-        onClick={toggle}
-        className="inline-flex items-center gap-1 text-xs sm:text-sm uppercase tracking-widest text-garage-steel hover:text-garage-amber"
-        aria-expanded={open}
-        aria-haspopup="menu"
-      >
+      <button ref={btnRef} type="button" onClick={toggle} className="inline-flex items-center gap-1 text-xs sm:text-sm uppercase tracking-widest text-garage-steel hover:text-garage-amber" aria-expanded={open} aria-haspopup="menu">
         Bays
         <ChevronDown className="h-3.5 w-3.5" />
       </button>
@@ -46,7 +39,7 @@ export function BaysNav() {
             <>
               <button type="button" className="fixed inset-0 z-[70]" aria-label="Close bays menu" onClick={() => setOpen(false)} />
               <div role="menu" className="fixed z-[80] w-64 border border-white/15 bg-[#121417] p-2 shadow-bay" style={{ top: pos.top, right: pos.right }}>
-                {BAYS.map((bay) => (
+                {baysAlphabetical().map((bay) => (
                   <Link key={bay.slug} href={bay.href} role="menuitem" className="flex items-center justify-between px-3 py-2 text-sm uppercase tracking-widest hover:bg-white/5 hover:text-garage-amber" onClick={() => setOpen(false)}>
                     {bay.label}
                     {bay.status === "live" ? <span className="text-[10px] text-garage-amber">Live</span> : null}

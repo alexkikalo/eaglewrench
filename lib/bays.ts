@@ -93,3 +93,7 @@ export const BAYS: Bay[] = [
 export function bayBySlug(slug: string): Bay | undefined {
   return BAYS.find((b) => b.slug === slug);
 }
+
+export function baysAlphabetical(): Bay[] {
+  return [...BAYS].sort((a, b) => a.label.localeCompare(b.label));
+}
