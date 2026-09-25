@@ -8,7 +8,7 @@ export function DisclaimerBanner({ full = false }: { full?: boolean }) {
       <div className="px-4 py-3 flex gap-3 items-start">
         <AlertTriangle className="h-5 w-5 shrink-0 text-safety mt-0.5" aria-hidden />
         <p className="text-sm leading-relaxed">
-          <span className="font-semibold uppercase tracking-wide text-safety">Safety — educational only. </span>
+          <span className="font-semibold uppercase tracking-wide text-safety">Safety. </span>
           {full ? LONG_DISCLAIMER : SHORT_DISCLAIMER}
         </p>
       </div>

@@ -7,6 +7,7 @@ import {
   enginesFor,
   makesForYear,
   modelsFor,
+  vehicleById,
   vehicleLabel,
   yearsInCatalog,
 } from "@/lib/vehicle/catalog";
@@ -18,11 +19,16 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
   const [year, setYear] = useState<number | "">(vehicle?.yearEnd ?? "");
   const [make, setMake] = useState(vehicle?.make ?? "");
   const [model, setModel] = useState(vehicle?.model ?? "");
+  const [engineId, setEngineId] = useState(vehicle?.id ?? "");
 
   const makes = year ? makesForYear(year) : [];
   const models = year && make ? modelsFor(year, make) : [];
   const engines = year && make && model ? enginesFor(year, make, model) : [];
-  const preview = useMemo(() => engines[0] ?? null, [engines]);
+  const preview = useMemo(() => {
+    const picked = vehicleById(engineId);
+    if (picked && engines.some((e) => e.id === picked.id)) return picked;
+    return engines.length === 1 ? engines[0] : null;
+  }, [engineId, engines]);
 
   if (!open || typeof document === "undefined") return null;
 
@@ -42,25 +48,25 @@ export function VehiclePicker({ open, onClose }: { open: boolean; onClose: () =>
         <p className="text-sm text-garage-steel mt-3">Saved on this device. Every bay uses this vehicle.</p>
         <div className="grid gap-3 mt-4">
           <Field label="Year">
-            <select value={year} onChange={(e) => { const next = e.target.value ? Number(e.target.value) : ""; setYear(next); setMake(""); setModel(""); }}>
+            <select value={year} onChange={(e) => { const next = e.target.value ? Number(e.target.value) : ""; setYear(next); setMake(""); setModel(""); setEngineId(""); }}>
               <option value="">Select year</option>
               {years.map((y) => (<option key={y} value={y}>{y}</option>))}
             </select>
           </Field>
           <Field label="Make">
-            <select value={make} disabled={!year} onChange={(e) => { setMake(e.target.value); setModel(""); }}>
+            <select value={make} disabled={!year} onChange={(e) => { setMake(e.target.value); setModel(""); setEngineId(""); }}>
               <option value="">Select make</option>
               {makes.map((m) => (<option key={m} value={m}>{m}</option>))}
             </select>
           </Field>
           <Field label="Model">
-            <select value={model} disabled={!make} onChange={(e) => setModel(e.target.value)}>
+            <select value={model} disabled={!make} onChange={(e) => { setModel(e.target.value); setEngineId(""); }}>
               <option value="">Select model</option>
               {models.map((m) => (<option key={m} value={m}>{m}</option>))}
             </select>
           </Field>
           <Field label="Engine">
-            <select value={engines.some((eng) => eng.id === vehicle?.id) ? vehicle!.id : ""} disabled={!model} onChange={(e) => { if (e.target.value) { setVehicleId(e.target.value); onClose(); } }}>
+            <select value={engineId} disabled={!model} onChange={(e) => setEngineId(e.target.value)}>
               <option value="">{engines.length ? "Select engine" : "—"}</option>
               {engines.map((eng) => (<option key={eng.id} value={eng.id}>{eng.engine}</option>))}
             </select>
