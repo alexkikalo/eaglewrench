@@ -1,11 +1,20 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Check, Droplets, RotateCcw, RotateCw, ShieldAlert, Wrench } from "lucide-react";
+import {
+  Check,
+  Droplets,
+  RotateCcw,
+  RotateCw,
+  ShieldAlert,
+  Wrench,
+} from "lucide-react";
 import { OilBay } from "@/components/oil/OilBay";
 import { MISTAKES, OIL_STEPS, PARTS, type PartId } from "@/lib/oil-content";
 import { DisclaimerBanner } from "@/components/Disclaimer";
+import { FindParts } from "@/components/parts/FindParts";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
+import { shopItemsForBay } from "@/lib/parts/for-bay";
 import {
   overlayAffiliates,
   overlayOilSteps,
@@ -100,7 +109,7 @@ export function OilChangeExperience() {
           </label>
           {spec ? (
             <div className="border border-garage-amber/40 p-3">
-              <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This engine</p>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This vehicle</p>
               <p className="font-semibold mt-1">{spec.title}</p>
               <p className="text-sm mt-1">{spec.line}</p>
               <p className="text-xs text-garage-steel mt-1">{spec.spec}</p>
@@ -108,6 +117,7 @@ export function OilChangeExperience() {
               <p className="text-[11px] text-garage-steel mt-2">Confirm on the fill cap. 3D model stays generic. {spec.source}.</p>
             </div>
           ) : null}
+          <FindParts items={shopItemsForBay("oil-change", vehicle)} />
           {selected ? (
             <div className="border border-white/10 p-3">
               <p className="font-stencil text-2xl tracking-widest text-garage-amber">{PARTS[selected].label}</p>
@@ -158,7 +168,7 @@ export function OilChangeExperience() {
           {tab === "how" ? (
             <div className="space-y-3">
               <p>Oil is a pressurized film. The pump pulls from the pan, pushes through the filter, and feeds bearings, cams, and walls. Gravity returns it to the pan. A change swaps contaminated oil and a loaded filter before the film fails.</p>
-              <p className="text-garage-steel">Use Drain in the bay to watch the sump empty. That is a teaching animation — real drain time depends on viscosity and temperature. Use Explode to separate the pan, plug, and filter.</p>
+              <p className="text-garage-steel">Use Drain in the bay to watch the sump empty. That is a preview — real drain time depends on viscosity and temperature. Use Explode to separate the pan, plug, and filter.</p>
             </div>
           ) : null}
           {tab === "tools" ? (
