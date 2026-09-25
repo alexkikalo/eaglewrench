@@ -46,18 +46,12 @@ export function BaysNav() {
             <>
               <button type="button" className="fixed inset-0 z-[70]" aria-label="Close bays menu" onClick={() => setOpen(false)} />
               <div role="menu" className="fixed z-[80] w-64 border border-white/15 bg-[#121417] p-2 shadow-bay" style={{ top: pos.top, right: pos.right }}>
-                {BAYS.map((bay) =>
-                  bay.status === "live" ? (
-                    <Link key={bay.label} href={bay.href} role="menuitem" className="block px-3 py-2 text-sm uppercase tracking-widest hover:bg-white/5 hover:text-garage-amber" onClick={() => setOpen(false)}>
-                      {bay.label}
-                    </Link>
-                  ) : (
-                    <p key={bay.label} className="flex items-center justify-between px-3 py-2 text-sm uppercase tracking-widest text-garage-steel/70">
-                      {bay.label}
-                      <span className="text-[10px] text-garage-amber">Soon</span>
-                    </p>
-                  ),
-                )}
+                {BAYS.map((bay) => (
+                  <Link key={bay.slug} href={bay.href} role="menuitem" className="flex items-center justify-between px-3 py-2 text-sm uppercase tracking-widest hover:bg-white/5 hover:text-garage-amber" onClick={() => setOpen(false)}>
+                    {bay.label}
+                    {bay.status === "live" ? <span className="text-[10px] text-garage-amber">Live</span> : null}
+                  </Link>
+                ))}
               </div>
             </>,
             document.body,
