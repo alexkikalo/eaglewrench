@@ -9,15 +9,12 @@ export function overlayOilSteps(steps: OilStep[], vehicle: Vehicle | null): OilS
   const qty = `${oil.capacityWithFilterQt} qt with filter`;
   const filterHow =
     oil.filterStyle === "cartridge"
-      ? `This engine uses a cartridge filter (OEM ${oil.filterOem}). Cap the housing, swap the element, and replace the housing O-rings — do not reuse dry rings.`
-      : `This engine uses a spin-on filter (OEM ${oil.filterOem}). Oil the new gasket, thread by hand, then follow the filter instruction.`;
+      ? `This vehicle uses a cartridge filter (OEM ${oil.filterOem}). Cap the housing, swap the element, and replace the housing O-rings — do not reuse dry rings.`
+      : `This vehicle uses a spin-on filter (OEM ${oil.filterOem}). Oil the new gasket, thread by hand, then follow the filter instruction.`;
 
   return steps.map((step) => {
     if (step.id === 6) {
-      return {
-        ...step,
-        body: `${filterHow} Place the drain pan under the housing. Keep the old filter upright until the residual oil is in the pan.`,
-      };
+      return { ...step, body: `${filterHow} Place the drain pan under the housing. Keep the old filter upright until the residual oil is in the pan.` };
     }
     if (step.id === 7) {
       return {
@@ -43,17 +40,8 @@ export function overlayTools(vehicle: Vehicle | null) {
   const { oil } = vehicle;
   return [
     ...TOOLS.filter((t) => !t.name.startsWith("New filter")),
-    {
-      name: `Oil — ${oil.viscosity}, ${oil.capacityWithFilterQt} qt`,
-      why: `Buy ${oil.viscosity} that meets ${oil.spec}. Published with-filter fill is ${oil.capacityWithFilterQt} qt. Confirm on the cap.`,
-    },
-    {
-      name: `Filter — ${oil.filterOem}`,
-      why:
-        oil.filterStyle === "cartridge"
-          ? "Cartridge housing. Replace the element and the O-rings together."
-          : "Spin-on canister. Match thread and gasket OD to the OEM number.",
-    },
+    { name: `Oil — ${oil.viscosity}, ${oil.capacityWithFilterQt} qt`, why: `Buy ${oil.viscosity} that meets ${oil.spec}. Published with-filter fill is ${oil.capacityWithFilterQt} qt. Confirm on the cap.` },
+    { name: `Filter — ${oil.filterOem}`, why: oil.filterStyle === "cartridge" ? "Cartridge housing. Replace the element and the O-rings together." : "Spin-on canister. Match thread and gasket OD to the OEM number." },
   ];
 }
 
@@ -61,20 +49,8 @@ export function overlayAffiliates(vehicle: Vehicle | null) {
   if (!vehicle) return AFFILIATES;
   const { oil } = vehicle;
   return AFFILIATES.map((a) => {
-    if (a.id === "oil") {
-      return {
-        ...a,
-        name: `${oil.viscosity} · ${oil.capacityWithFilterQt} qt`,
-        note: `${oil.spec}. ${oil.capacityNote ?? "With filter."} Link pending.`,
-      };
-    }
-    if (a.id === "filter") {
-      return {
-        ...a,
-        name: oil.filterOem,
-        note: `${oil.filterStyle === "cartridge" ? "Cartridge element" : "Spin-on"} · match OEM. Link pending.`,
-      };
-    }
+    if (a.id === "oil") return { ...a, name: `${oil.viscosity} · ${oil.capacityWithFilterQt} qt`, note: `${oil.spec}. ${oil.capacityNote ?? "With filter."} Link pending.` };
+    if (a.id === "filter") return { ...a, name: oil.filterOem, note: `${oil.filterStyle === "cartridge" ? "Cartridge element" : "Spin-on"} · match OEM. Link pending.` };
     return a;
   });
 }
@@ -82,18 +58,10 @@ export function overlayAffiliates(vehicle: Vehicle | null) {
 export function overlayPartHint(partId: keyof typeof PARTS, vehicle: Vehicle | null) {
   const base = PARTS[partId];
   if (!vehicle) return base.hint;
-  if (partId === "oilFilter") {
-    return `${vehicle.oil.filterStyle === "cartridge" ? "Cartridge" : "Spin-on"} · OEM ${vehicle.oil.filterOem}.`;
-  }
-  if (partId === "oilVolume") {
-    return `${vehicle.oil.capacityWithFilterQt} qt published refill with filter · ${vehicle.oil.viscosity}.`;
-  }
-  if (partId === "fillCap") {
-    return `Cap should read ${vehicle.oil.viscosity}. Spec: ${vehicle.oil.spec}.`;
-  }
-  if (partId === "drainPlug" && vehicle.oil.drainPlug) {
-    return `${vehicle.oil.drainPlug}. Torque only from the service information.`;
-  }
+  if (partId === "oilFilter") return `${vehicle.oil.filterStyle === "cartridge" ? "Cartridge" : "Spin-on"} · OEM ${vehicle.oil.filterOem}.`;
+  if (partId === "oilVolume") return `${vehicle.oil.capacityWithFilterQt} qt published refill with filter · ${vehicle.oil.viscosity}.`;
+  if (partId === "fillCap") return `Cap should read ${vehicle.oil.viscosity}. Spec: ${vehicle.oil.spec}.`;
+  if (partId === "drainPlug" && vehicle.oil.drainPlug) return `${vehicle.oil.drainPlug}. Torque only from the service information.`;
   return base.hint;
 }
 
