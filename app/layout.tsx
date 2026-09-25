@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | EagleWrench",
   },
   description:
-    "Learn automotive maintenance in a 3D garage bay. Educational demonstrations only — not a substitute for a service manual or a licensed technician.",
+    "Stop monkeying around. Soar — be your own mechanic. 3D garage lessons for oil, tires, wipers, and the rest of the list. Educational only.",
   keywords: [
     "oil change",
     "automotive education",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "EagleWrench — Interactive Automotive Repair Education",
-    description: "Phone-first 3D garage training. Educational only. Safety first.",
+    description: "Stop monkeying around. Soar — be your own mechanic. Educational 3D garage. Safety first.",
     url: "https://eaglewrench.com",
     siteName: "EagleWrench",
     locale: "en_US",
