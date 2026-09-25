@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: #0b0c0e;
+  color: #e8e4d9;
+}
+
+body {
+  background-image:
+    radial-gradient(1200px 500px at 50% -10%, rgba(212, 160, 23, 0.08), transparent 55%),
+    linear-gradient(180deg, #121417 0%, #0b0c0e 40%);
+}
+
+::selection {
+  background: #d4a017;
+  color: #0b0c0e;
+}
+
+.steel-panel {
+  background:
+    linear-gradient(180deg, rgba(38, 43, 51, 0.92), rgba(18, 20, 23, 0.96));
+  border: 1px solid rgba(139, 146, 156, 0.22);
+}
+
+.hazard-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #e11d2e,
+    #e11d2e 10px,
+    #1a1d22 10px,
+    #1a1d22 20px
+  );
+}
