@@ -100,7 +100,7 @@ export const TOOLS = [
   { name: "Drain pan (2x expected volume)", why: "Warm oil exits faster and farther than a small pan can catch." },
   { name: "New filter + specified oil + crush washer", why: "Do not reuse a collapsed filter or a flattened washer." },
   { name: "Gloves, glasses, rags, funnel", why: "Eyes and skin first. Funnel keeps grit out of the fill neck." },
-  { name: "Torque source + service info", why: "Phone-in-garage still needs the real spec. Guessing is how pans get stripped." },
+  { name: "Torque source + service info", why: "The bay still needs the real spec. Guessing is how pans get stripped." },
 ];
 
 export const MISTAKES = [
