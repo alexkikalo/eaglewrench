@@ -7,6 +7,7 @@ import * as THREE from "three";
 import { ProceduralOilSystem } from "@/components/oil/ProceduralOilSystem";
 import { GltfOilSystem } from "@/components/oil/GltfOilSystem";
 import type { PartId } from "@/lib/oil-content";
+import type { OilBayLayout } from "@/lib/vehicle/bay-layout";
 
 const useGlb = process.env.NEXT_PUBLIC_USE_GLB === "true";
 
@@ -18,6 +19,7 @@ type BayProps = {
   autoRotate: boolean;
   camera: { position: [number, number, number]; target: [number, number, number] };
   resetToken: number;
+  layout: OilBayLayout;
 };
 
 function CameraRig({
@@ -86,6 +88,7 @@ export function OilBay(props: BayProps) {
               onSelect={props.onSelect}
               draining={props.draining}
               showLabels
+              layout={props.layout}
             />
           )}
         </Suspense>
