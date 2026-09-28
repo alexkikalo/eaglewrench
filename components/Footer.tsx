@@ -1,15 +1,13 @@
-import { LONG_DISCLAIMER } from "@/lib/disclaimer";
-import { BrandMark } from "@/components/BrandMark";
-
 export function Footer() {
   return (
-    <footer className="shrink-0 border-t border-white/10 bg-garage-950">
-      <div className="w-full px-4 py-6 grid gap-4 md:grid-cols-[1fr_2fr]">
-        <BrandMark />
-        <p className="text-xs leading-relaxed text-garage-steel">{LONG_DISCLAIMER}</p>
-      </div>
-      <div className="border-t border-white/5 px-4 py-3 text-center text-[11px] tracking-widest uppercase text-garage-steel/80">
-        © {new Date().getFullYear()} EagleWrench · eaglewrench.com · Demonstration, not a shop ticket
+    <footer className="site-footer shrink-0 border-t border-white/10 bg-garage-950">
+      <div className="w-full px-4 py-1.5 flex items-center justify-between gap-4">
+        <p className="text-[11px] uppercase tracking-widest text-garage-steel/80 whitespace-nowrap">
+          © {new Date().getFullYear()} EagleWrench · Demonstration only
+        </p>
+        <p className="hidden sm:block text-[11px] leading-none text-garage-steel truncate">
+          Not a service manual. Confirm the manufacturer procedure before you turn a wrench.
+        </p>
       </div>
     </footer>
   );

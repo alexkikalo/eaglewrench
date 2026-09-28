@@ -1,10 +1,9 @@
-import { DisclaimerBanner } from "@/components/Disclaimer";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { BaysGrid } from "@/components/BaysGrid";
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="page-scroll">
       <section className="relative overflow-hidden">
         <div className="w-full px-4 py-16 md:py-24">
           <p className="text-xs uppercase tracking-[0.35em] text-garage-amber mb-3">EagleWrench</p>
@@ -25,9 +24,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <div className="w-full px-4">
-        <DisclaimerBanner full />
-      </div>
       <BaysGrid />
       <section className="w-full px-4 py-8 grid md:grid-cols-3 gap-6">
         {[

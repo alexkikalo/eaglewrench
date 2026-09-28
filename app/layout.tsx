@@ -48,15 +48,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${stencil.variable} ${body.variable}`}>
-      <body className="font-body min-h-screen flex flex-col antialiased">
+    <html lang="en" className={`${stencil.variable} ${body.variable} h-dvh overflow-hidden`}>
+      <body className="font-body h-dvh overflow-hidden flex flex-col antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-garage-amber text-garage-950 px-3 py-2">
           Skip to content
         </a>
         <Providers>
           <Header />
           <SafetyBar />
-          <main id="main" className="flex-1 w-full">
+          <main id="main" className="flex-1 min-h-0 overflow-hidden flex flex-col w-full">
             {children}
           </main>
           <Footer />
