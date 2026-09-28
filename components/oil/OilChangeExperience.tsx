@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Check,
   Droplets,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { OilBay } from "@/components/oil/OilBay";
 import { MISTAKES, OIL_STEPS, PARTS, type PartId } from "@/lib/oil-content";
+import { camerasForLayout, inferOilBayLayout } from "@/lib/vehicle/bay-layout";
 import { FindParts } from "@/components/parts/FindParts";
 import { useVehicle } from "@/components/vehicle/VehicleProvider";
 import { shopItemsForBay } from "@/lib/parts/for-bay";
@@ -43,11 +44,19 @@ export function OilChangeExperience() {
   const tools = useMemo(() => overlayTools(vehicle), [vehicle]);
   const affiliates = useMemo(() => overlayAffiliates(vehicle), [vehicle]);
   const spec = vehicle ? specSummary(vehicle) : null;
+  const layout = useMemo(() => inferOilBayLayout(vehicle), [vehicle]);
+  const layoutCams = useMemo(() => camerasForLayout(layout), [layout]);
+
+  useEffect(() => {
+    setResetToken((n) => n + 1);
+  }, [layout.title, layout.arch, layout.filterStyle]);
 
   const camera = useMemo(() => {
     if (step == null) return DEFAULT_CAM;
-    return steps[step - 1]?.camera ?? DEFAULT_CAM;
-  }, [step, steps]);
+    const s = steps[step - 1];
+    if (!s) return DEFAULT_CAM;
+    return layoutCams[s.part] ?? s.camera ?? DEFAULT_CAM;
+  }, [step, steps, layoutCams]);
 
   function pickStep(id: number) {
     const s = steps[id - 1];
@@ -81,7 +90,13 @@ export function OilChangeExperience() {
             autoRotate={autoRotate}
             camera={camera}
             resetToken={resetToken}
+            layout={layout}
           />
+          <div className="pointer-events-none absolute right-3 top-3 z-10 max-w-[16rem] border border-white/15 bg-garage-950/80 px-2.5 py-2">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">Teaching stand</p>
+            <p className="mt-1 text-sm font-semibold leading-tight">{layout.title}</p>
+            <p className="mt-1 text-[11px] leading-snug text-garage-steel">{layout.line}</p>
+          </div>
           <div className="absolute left-3 top-3 z-10 flex flex-wrap gap-2">
             <button type="button" onClick={() => setAutoRotate((v) => !v)} className="inline-flex items-center gap-1.5 border border-white/20 bg-garage-950/70 px-2.5 py-1.5 text-[10px] uppercase tracking-widest hover:border-garage-amber">
               <RotateCw className="h-3 w-3" />
@@ -110,7 +125,7 @@ export function OilChangeExperience() {
               <p className="text-sm mt-1">{spec.line}</p>
               <p className="text-xs text-garage-steel mt-1">{spec.spec}</p>
               {spec.note ? <p className="text-xs text-garage-steel mt-1">{spec.note}</p> : null}
-              <p className="text-[11px] text-garage-steel mt-2">Confirm on the fill cap. 3D model stays generic. {spec.source}.</p>
+              <p className="text-[11px] text-garage-steel mt-2">Confirm on the fill cap. Stand follows this engine family — not this VIN. {spec.source}.</p>
             </div>
           ) : null}
 
@@ -166,7 +181,7 @@ export function OilChangeExperience() {
               {tab === "how" ? (
                 <div className="space-y-3">
                   <p>Oil is a pressurized film. The pump pulls from the pan, pushes through the filter, and feeds bearings, cams, and walls. Gravity returns it to the pan. A change swaps contaminated oil and a loaded filter before the film fails.</p>
-                  <p className="text-garage-steel">Use Drain in the bay to watch the sump empty. That is a preview — real drain time depends on viscosity and temperature. Use Explode to separate the pan, plug, and filter.</p>
+                  <p className="text-garage-steel">The stand is this engine family: filter type and mount change with the vehicle. Drain previews the sump. Explode separates the pan, plug, and filter. Confirm every fastener on the vehicle in front of you.</p>
                 </div>
               ) : null}
               {tab === "tools" ? (
