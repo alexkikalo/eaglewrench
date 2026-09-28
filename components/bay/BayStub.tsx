@@ -10,9 +10,9 @@ export function BayStub({ bay }: { bay: Bay }) {
   const { vehicle, ready } = useVehicle();
 
   return (
-    <div className="w-full px-4 py-4">
-      <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[calc(100dvh-10rem)] relative grid place-items-center px-6 text-center">
+    <div className="bay-frame">
+      <div className="bay-shell">
+        <section className="bay-preview steel-panel relative overflow-hidden grid place-items-center px-6 text-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber absolute left-3 top-3">{bay.label}</p>
           <div>
             <p className="font-stencil text-4xl tracking-wide">{bay.label}</p>
@@ -20,7 +20,7 @@ export function BayStub({ bay }: { bay: Bay }) {
             <p className="mt-2 text-sm text-garage-steel">3D for this job is not built yet.</p>
           </div>
         </section>
-        <section className="steel-panel p-4 space-y-4 lg:max-h-[calc(100dvh-10rem)] lg:overflow-y-auto">
+        <section className="bay-steps steel-panel p-4 space-y-4">
           <div className="border border-garage-amber/40 p-3 text-sm">
             {!ready ? (
               <p className="text-garage-steel">Loading vehicle…</p>
