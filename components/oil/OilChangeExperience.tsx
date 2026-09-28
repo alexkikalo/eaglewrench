@@ -66,9 +66,9 @@ export function OilChangeExperience() {
   }
 
   return (
-    <div className="w-full px-4 py-4">
-      <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <section className="steel-panel overflow-hidden min-h-[360px] lg:min-h-[calc(100dvh-10rem)] relative">
+    <div className="bay-frame">
+      <div className="bay-shell">
+        <section className="bay-preview steel-panel relative overflow-hidden">
           <OilBay
             explode={explode}
             selected={selected}
@@ -102,7 +102,7 @@ export function OilChangeExperience() {
           </label>
         </section>
 
-        <section className="steel-panel p-4 space-y-4 lg:max-h-[calc(100dvh-10rem)] lg:overflow-y-auto">
+        <section className="bay-steps steel-panel p-4 space-y-4">
           {spec ? (
             <div className="border border-garage-amber/40 p-3">
               <p className="text-[10px] uppercase tracking-[0.25em] text-garage-amber">This vehicle</p>
